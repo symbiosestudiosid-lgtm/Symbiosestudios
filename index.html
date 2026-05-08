@@ -1,0 +1,1778 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Symbioses Studios — Drop 001: Mutual Ground</title>
+<meta name="description" content="Symbioses Studios — Independent fashion label. Drop 001: Mutual Ground. SS25, Jakarta.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Cormorant:ital,wght@0,300;0,400;1,300;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SYMBIOSES STUDIOS — FULL SITE CSS
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --void: #0A0A0A;
+  --bone: #F2EDE6;
+  --spore: #C8F135;
+  --rust: #C84B31;
+  --moss: #5C5545;
+  --soft: #888888;
+  --line: #D8D2CB;
+  --mid: #1A1A1A;
+  --sand: #EDE8E0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bone);
+  color: var(--void);
+  font-family: 'DM Mono', monospace;
+  font-weight: 400;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* ── CUSTOM CURSOR ── */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--void);
+  border-radius: 0;
+  position: fixed;
+  top: 0; left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: width .15s, height .15s, background .15s;
+  transform: translate(-50%, -50%);
+}
+.cursor.hover { width: 32px; height: 32px; background: var(--spore); mix-blend-mode: multiply; }
+body { cursor: none; }
+a, button, [onclick] { cursor: none; }
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bone); }
+::-webkit-scrollbar-thumb { background: var(--line); }
+
+/* ── PAGE SYSTEM ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+
+/* ── NAVIGATION ── */
+nav {
+  background: var(--void);
+  padding: 0 36px;
+  height: 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  border-bottom: .5px solid #1a1a1a;
+}
+
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: .35em;
+  color: var(--bone);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: none;
+}
+
+.nav-center {
+  display: flex;
+  gap: 0;
+  align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.nav-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--soft);
+  background: none;
+  border: none;
+  padding: 6px 16px;
+  cursor: none;
+  transition: color .2s;
+  position: relative;
+}
+.nav-link:hover, .nav-link.active { color: var(--bone); }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 16px; right: 16px;
+  height: 1px;
+  background: var(--spore);
+}
+
+.nav-right { display: flex; align-items: center; gap: 16px; }
+
+.nav-icon-btn {
+  background: none;
+  border: none;
+  color: var(--soft);
+  font-size: 16px;
+  cursor: none;
+  transition: color .2s;
+  position: relative;
+  padding: 4px;
+}
+.nav-icon-btn:hover { color: var(--bone); }
+
+.cart-badge {
+  position: absolute;
+  top: -2px; right: -4px;
+  background: var(--spore);
+  color: var(--void);
+  width: 16px; height: 16px;
+  border-radius: 0;
+  font-size: 8px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Barlow Condensed', sans-serif;
+}
+
+/* ── TICKER ── */
+.ticker {
+  background: var(--mid);
+  padding: 8px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex;
+  animation: ticker-move 22s linear infinite;
+}
+.ticker-item {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #555;
+  padding: 0 28px;
+}
+.ticker-item span { color: var(--spore); }
+@keyframes ticker-move { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ── SEARCH OVERLAY ── */
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,10,.96);
+  z-index: 800;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 120px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.search-overlay.open { opacity: 1; pointer-events: all; }
+
+.search-box {
+  width: 100%;
+  max-width: 680px;
+  padding: 0 24px;
+}
+.search-label {
+  font-size: 9px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--soft);
+  margin-bottom: 16px;
+}
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+}
+.search-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: .04em;
+  color: var(--bone);
+  outline: none;
+  text-transform: uppercase;
+}
+.search-input::placeholder { color: #2a2a2a; }
+.search-close {
+  background: none; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 20px;
+  color: var(--soft); cursor: none;
+  letter-spacing: .1em;
+}
+.search-close:hover { color: var(--bone); }
+
+.search-filters {
+  display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
+}
+.sf-btn {
+  padding: 6px 14px;
+  border: .5px solid #333;
+  background: transparent;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  color: #555; cursor: none; transition: .15s;
+}
+.sf-btn:hover, .sf-btn.active { border-color: var(--spore); color: var(--spore); }
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: #1a1a1a;
+  max-width: 680px;
+  width: 100%;
+  padding: 0 24px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+.sr-item {
+  background: var(--mid);
+  padding: 14px;
+  cursor: none;
+  transition: background .15s;
+  opacity: 0;
+  transform: translateY(8px);
+  animation: sr-in .3s forwards;
+}
+.sr-item:hover { background: #222; }
+@keyframes sr-in { to { opacity: 1; transform: translateY(0); } }
+.sr-img {
+  width: 100%; aspect-ratio: 3/4;
+  background: #111;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px; position: relative;
+}
+.sr-img::before { content: ''; position: absolute; inset: 8px; border: .5px solid #1e1e1e; }
+.sr-img-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 9px; font-weight: 800; letter-spacing: .2em; color: #2a2a2a; text-transform: uppercase; }
+.sr-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--bone); }
+.sr-price { font-size: 9px; color: var(--soft); margin-top: 2px; }
+
+/* ── CART DRAWER ── */
+.cart-drawer {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: 380px;
+  background: var(--bone);
+  z-index: 700;
+  transform: translateX(100%);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  display: flex; flex-direction: column;
+  border-left: .5px solid var(--line);
+}
+.cart-drawer.open { transform: translateX(0); }
+.cart-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(10,10,10,.5);
+  z-index: 699;
+  opacity: 0; pointer-events: none;
+  transition: opacity .3s;
+}
+.cart-backdrop.open { opacity: 1; pointer-events: all; }
+
+.cd-header {
+  padding: 20px 24px;
+  border-bottom: .5px solid var(--line);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.cd-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 20px; letter-spacing: .2em; text-transform: uppercase;
+}
+.cd-close {
+  background: none; border: none;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 18px; color: var(--void); cursor: none; padding: 4px;
+}
+
+.cd-items { flex: 1; overflow-y: auto; }
+.cd-item {
+  display: grid; grid-template-columns: 64px 1fr;
+  gap: 14px; padding: 18px 24px;
+  border-bottom: .5px solid var(--line);
+  animation: cd-item-in .25s ease forwards;
+}
+@keyframes cd-item-in { from { opacity: 0; transform: translateX(12px); } to { opacity: 1; transform: translateX(0); } }
+.cd-thumb {
+  width: 64px; height: 80px;
+  background: var(--void);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; flex-shrink: 0;
+}
+.cd-thumb::before { content: ''; position: absolute; inset: 6px; border: .5px solid #333; }
+.cd-thumb-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 7px; font-weight: 800; color: #444; letter-spacing: .1em; }
+.cd-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15px; letter-spacing: .1em; text-transform: uppercase; color: var(--void); margin-bottom: 3px; }
+.cd-var { font-size: 9px; color: var(--soft); letter-spacing: .08em; margin-bottom: 6px; }
+.cd-price { font-size: 10px; color: var(--void); }
+.qty-row { display: flex; align-items: center; gap: 0; margin-top: 8px; }
+.qty-btn {
+  width: 26px; height: 26px; border: .5px solid var(--line);
+  background: transparent; font-size: 14px; color: var(--void); cursor: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .15s; font-family: 'DM Mono', monospace;
+}
+.qty-btn:hover { background: var(--void); color: var(--bone); }
+.qty-num { width: 28px; height: 26px; border-top: .5px solid var(--line); border-bottom: .5px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 11px; }
+.cd-remove { background: none; border: none; font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); cursor: none; font-family: 'DM Mono', monospace; margin-top: 6px; display: block; }
+.cd-remove:hover { color: var(--rust); }
+
+.cd-footer { padding: 20px 24px; border-top: .5px solid var(--line); }
+.cd-promo { display: flex; gap: 0; margin-bottom: 16px; }
+.cd-promo input {
+  flex: 1; background: transparent; border: .5px solid var(--line); border-right: none;
+  padding: 10px 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--void);
+  outline: none; letter-spacing: .05em;
+}
+.cd-promo input::placeholder { color: #bbb; }
+.cd-promo-btn {
+  background: var(--void); border: none; padding: 10px 14px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--bone); cursor: none;
+}
+.cd-sum { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
+.cd-sum-row { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.cd-sum-row .k { color: var(--soft); }
+.cd-sum-row .v { color: var(--void); }
+.cd-sum-row.big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: .05em; border-top: .5px solid var(--line); padding-top: 10px; margin-top: 4px; }
+.cd-checkout {
+  background: var(--void); border: none; width: 100%; padding: 16px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--bone); cursor: none;
+  margin-bottom: 8px; transition: background .15s;
+}
+.cd-checkout:hover { background: var(--mid); }
+.cd-shop {
+  background: transparent; border: .5px solid var(--line); width: 100%; padding: 12px;
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--void); cursor: none;
+}
+
+/* ── WISHLIST DRAWER ── */
+.wishlist-drawer {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: 400px;
+  background: var(--void);
+  z-index: 700;
+  transform: translateX(-100%);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  display: flex; flex-direction: column;
+  border-right: .5px solid #1a1a1a;
+}
+.wishlist-drawer.open { transform: translateX(0); }
+.wd-header { padding: 20px 24px; border-bottom: .5px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+.wd-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: .2em; text-transform: uppercase; color: var(--bone); }
+.wd-close { background: none; border: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; color: var(--soft); cursor: none; }
+.wd-close:hover { color: var(--bone); }
+.wd-items { flex: 1; overflow-y: auto; padding: 0; }
+.wd-item { display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; padding: 16px 24px; border-bottom: .5px solid #1a1a1a; align-items: center; }
+.wd-thumb { width: 56px; height: 70px; background: #111; display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+.wd-thumb::before { content: ''; position: absolute; inset: 5px; border: .5px solid #1e1e1e; }
+.wd-thumb-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 7px; font-weight: 800; color: #2a2a2a; }
+.wd-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--bone); margin-bottom: 2px; }
+.wd-var { font-size: 8px; color: var(--soft); letter-spacing: .08em; margin-bottom: 6px; }
+.wd-price { font-size: 10px; color: #666; }
+.wd-add { background: var(--spore); border: none; padding: 8px 12px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--void); cursor: none; white-space: nowrap; transition: opacity .15s; }
+.wd-add:hover { opacity: .85; }
+.wd-remove-btn { background: none; border: none; font-size: 8px; color: var(--soft); cursor: none; letter-spacing: .1em; text-transform: uppercase; font-family: 'DM Mono', monospace; margin-top: 4px; display: block; }
+.wd-empty { padding: 60px 24px; text-align: center; }
+.wd-empty-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: .15em; text-transform: uppercase; color: #2a2a2a; margin-bottom: 8px; }
+.wd-empty-sub { font-size: 10px; color: var(--soft); letter-spacing: .08em; line-height: 1.8; }
+
+/* ── COUNTDOWN BANNER ── */
+.countdown-banner {
+  background: var(--void);
+  border-bottom: .5px solid #1a1a1a;
+  padding: 14px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+.cb-left { display: flex; flex-direction: column; gap: 3px; }
+.cb-eyebrow { font-size: 7px; letter-spacing: .3em; text-transform: uppercase; color: var(--soft); }
+.cb-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: .15em; text-transform: uppercase; color: var(--bone); }
+.cb-timer { display: flex; gap: 12px; align-items: center; }
+.cb-unit { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.cb-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 32px; letter-spacing: .04em;
+  color: var(--bone); line-height: 1;
+  min-width: 44px; text-align: center;
+  background: #111; padding: 6px 10px;
+  position: relative; overflow: hidden;
+}
+.cb-num.flip { animation: flip .3s ease; }
+@keyframes flip { 0% { transform: rotateX(0); } 50% { transform: rotateX(-90deg); color: var(--spore); } 100% { transform: rotateX(0); } }
+.cb-label { font-size: 7px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+.cb-sep { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 24px; color: #333; margin-bottom: 12px; }
+.cb-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.cb-msg { font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); }
+.cb-notify {
+  background: var(--spore); border: none; padding: 8px 16px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--void); cursor: none;
+  transition: opacity .15s;
+}
+.cb-notify:hover { opacity: .9; }
+
+/* ── HERO SECTION ── */
+.hero {
+  background: var(--void);
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 580px;
+  overflow: hidden;
+}
+.hero-left { padding: 52px 52px 52px 36px; display: flex; flex-direction: column; justify-content: space-between; }
+.hero-eyebrow { font-size: 9px; letter-spacing: .3em; text-transform: uppercase; color: var(--soft); margin-bottom: 16px; }
+.hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800; font-size: 96px; letter-spacing: .03em;
+  text-transform: uppercase; color: var(--bone); line-height: .88;
+  animation: hero-in .8s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes hero-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-sub { font-family: 'Cormorant', serif; font-style: italic; font-size: 18px; color: var(--soft); margin-top: 16px; }
+.hero-bottom { display: flex; gap: 20px; align-items: center; }
+.hero-cta {
+  background: var(--spore); border: none; padding: 14px 32px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--void); cursor: none;
+  transition: opacity .15s;
+}
+.hero-cta:hover { opacity: .9; }
+.hero-units { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--rust); }
+.hero-right {
+  display: flex; align-items: flex-end; justify-content: flex-end;
+  gap: 10px; padding: 0 0 0 0; overflow: hidden;
+}
+.hero-img {
+  background: #111; border-top: .5px solid #1a1a1a;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; flex-shrink: 0;
+}
+.hero-img::before { content: ''; position: absolute; inset: 14px; border: .5px solid #1a1a1a; }
+.hero-img-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .2em; color: #2a2a2a; text-transform: uppercase; z-index: 1; }
+.hi-a { width: 130px; height: 380px; }
+.hi-b { width: 160px; height: 460px; }
+.hi-c { width: 130px; height: 340px; }
+
+/* ── COLLECTION GRID ── */
+.collection-section { padding: 0 36px 52px; }
+.section-head {
+  padding: 28px 0 0;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: .5px solid var(--line); padding-bottom: 14px; margin-bottom: 0;
+}
+.section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--void); }
+.section-count { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--soft); }
+
+.filter-row {
+  padding: 14px 0;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;
+  border-bottom: .5px solid var(--line);
+}
+.filter-group { display: flex; gap: 6px; flex-wrap: wrap; }
+.fb {
+  padding: 6px 14px; border: .5px solid var(--line);
+  background: transparent; font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--soft); cursor: none; transition: .15s;
+}
+.fb:hover { border-color: var(--void); color: var(--void); }
+.fb.active { background: var(--void); color: var(--bone); border-color: var(--void); }
+.sort-wrap { display: flex; align-items: center; gap: 10px; }
+.sort-label { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--soft); }
+.sort-sel {
+  background: transparent; border: .5px solid var(--line); padding: 6px 10px;
+  font-family: 'DM Mono', monospace; font-size: 9px; color: var(--void); outline: none; cursor: none;
+}
+
+.prod-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--line);
+  margin-top: 0;
+}
+.prod-grid.two-col { grid-template-columns: repeat(2, 1fr); }
+
+.prod-card {
+  background: var(--bone);
+  cursor: none; position: relative; overflow: hidden;
+}
+.pc-img {
+  width: 100%; aspect-ratio: 3/4;
+  background: var(--void);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.pc-img::before { content: ''; position: absolute; inset: 14px; border: .5px solid #1a1a1a; z-index: 1; }
+.pc-img-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 10px; font-weight: 800; letter-spacing: .2em; color: #2a2a2a; text-transform: uppercase; z-index: 2; }
+
+.pc-badge {
+  position: absolute; top: 10px; left: 10px; z-index: 3;
+  font-size: 8px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; padding: 3px 8px;
+}
+.badge-new { background: var(--spore); color: var(--void); }
+.badge-low { background: var(--rust); color: var(--bone); }
+.badge-out { background: #2a2a2a; color: #555; }
+
+.pc-overlay {
+  position: absolute; inset: 0; z-index: 4;
+  background: rgba(10,10,10,.78);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  opacity: 0; transition: opacity .2s;
+}
+.prod-card:hover .pc-overlay { opacity: 1; }
+.pc-quick {
+  padding: 10px 22px; background: var(--spore); border: none;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px;
+  letter-spacing: .22em; text-transform: uppercase; color: var(--void); cursor: none;
+  transition: opacity .15s;
+}
+.pc-quick:hover { opacity: .9; }
+.pc-view {
+  padding: 8px 22px; background: transparent; border: .5px solid #666;
+  font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--bone); cursor: none;
+}
+.pc-wish-btn {
+  position: absolute; top: 10px; right: 10px; z-index: 5;
+  background: none; border: none; font-size: 16px; cursor: none;
+  color: #555; transition: color .2s; padding: 4px;
+}
+.pc-wish-btn:hover, .pc-wish-btn.wished { color: var(--rust); }
+
+.pc-info { padding: 12px 14px 16px; }
+.pc-cat { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); margin-bottom: 3px; }
+.pc-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 20px; letter-spacing: .06em; text-transform: uppercase; color: var(--void); line-height: 1; margin-bottom: 4px; }
+.pc-price { font-size: 10px; color: var(--void); }
+.pc-price.out { color: var(--soft); text-decoration: line-through; }
+.pc-colors { display: flex; gap: 4px; margin-top: 6px; }
+.pc-swatch { width: 12px; height: 12px; }
+.pc-swatch.light { border: .5px solid var(--line); }
+.pc-sizes { font-size: 8px; letter-spacing: .1em; color: #bbb; margin-top: 4px; }
+
+.feat-wide { grid-column: span 2; }
+.feat-wide .pc-img { aspect-ratio: 16/9; }
+
+/* ── PRODUCT DETAIL PAGE ── */
+.pd-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 52px); }
+.pd-gallery { background: var(--void); position: relative; }
+.pd-drop-badge { position: absolute; top: 20px; left: 20px; background: var(--spore); padding: 4px 10px; font-size: 8px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--void); z-index: 2; }
+.pd-main-img { width: 100%; height: 500px; display: flex; align-items: center; justify-content: center; position: relative; }
+.pd-main-img::before { content: ''; position: absolute; inset: 30px; border: .5px solid #1a1a1a; }
+.pd-ph { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 800; letter-spacing: .25em; color: #2a2a2a; text-transform: uppercase; z-index: 1; }
+.pd-thumbs { display: flex; gap: 8px; padding: 12px 20px; background: #0f0f0f; }
+.pd-thumb { width: 56px; height: 72px; border: .5px solid #222; cursor: none; display: flex; align-items: center; justify-content: center; position: relative; transition: border-color .15s; }
+.pd-thumb::after { content: ''; position: absolute; inset: 4px; border: .5px solid #1a1a1a; }
+.pd-thumb.active, .pd-thumb:hover { border-color: var(--spore); }
+
+.pd-info { padding: 36px 40px; overflow-y: auto; max-height: calc(100vh - 52px); }
+.pd-meta { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.pd-coll { font-size: 8px; letter-spacing: .25em; text-transform: uppercase; color: var(--soft); }
+.pd-sku { font-size: 8px; letter-spacing: .15em; color: #bbb; }
+.pd-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 52px; letter-spacing: .04em; text-transform: uppercase; color: var(--void); line-height: .9; margin-bottom: 6px; }
+.pd-subtitle { font-family: 'Cormorant', serif; font-style: italic; font-size: 16px; color: var(--soft); margin-bottom: 16px; }
+.pd-price { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 28px; color: var(--void); letter-spacing: .02em; margin-bottom: 20px; }
+.pd-divider { height: .5px; background: var(--line); margin: 16px 0; }
+.pd-size-head { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--void); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+.pd-size-head a { color: var(--rust); text-decoration: none; font-size: 8px; letter-spacing: .15em; }
+.size-grid { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.sz-btn { width: 46px; height: 46px; border: .5px solid var(--line); background: transparent; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--void); cursor: none; transition: .15s; display: flex; align-items: center; justify-content: center; }
+.sz-btn:hover { border-color: var(--void); }
+.sz-btn.active { background: var(--void); color: var(--bone); border-color: var(--void); }
+.sz-btn.sold { color: #ccc; text-decoration: line-through; pointer-events: none; border-color: #eee; }
+.pd-color-head { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--void); margin-bottom: 10px; }
+.color-grid { display: flex; gap: 10px; margin-bottom: 20px; }
+.color-dot { width: 28px; height: 28px; cursor: none; border: 1.5px solid transparent; transition: .15s; }
+.color-dot.active { outline: 1.5px solid var(--void); outline-offset: 2px; }
+.pd-add {
+  background: var(--void); border: none; width: 100%; padding: 17px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--bone); cursor: none;
+  margin-bottom: 10px; transition: background .15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+}
+.pd-add:hover { background: var(--mid); }
+.pd-add.adding { background: var(--spore); color: var(--void); }
+.pd-wish-btn {
+  background: transparent; border: .5px solid var(--line); width: 100%; padding: 14px;
+  font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--void); cursor: none; display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin-bottom: 20px;
+}
+.pd-detail-list { display: flex; flex-direction: column; gap: 0; }
+.pd-detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: .5px solid #EAE5DE; }
+.pd-dk { font-size: 8px; letter-spacing: .18em; text-transform: uppercase; color: var(--soft); }
+.pd-dv { font-size: 10px; color: var(--void); text-align: right; max-width: 58%; }
+.pd-stock-warn { font-size: 9px; color: var(--rust); }
+
+/* ── CHECKOUT PAGE ── */
+.co-layout { display: grid; grid-template-columns: 1fr 400px; min-height: calc(100vh - 52px); }
+.co-form { padding: 36px 40px; border-right: .5px solid var(--line); }
+.co-summary { padding: 28px 28px; background: var(--sand); }
+.co-steps { display: flex; align-items: center; gap: 0; margin-bottom: 28px; padding-bottom: 20px; border-bottom: .5px solid var(--line); }
+.co-step { font-size: 9px; letter-spacing: .15em; text-transform: uppercase; padding: 0 14px 0 0; display: flex; align-items: center; gap: 8px; }
+.co-step-num { width: 20px; height: 20px; border: .5px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--soft); flex-shrink: 0; }
+.co-step.done .co-step-num { background: var(--void); color: var(--bone); border-color: var(--void); }
+.co-step.curr .co-step-num { background: var(--spore); color: var(--void); border-color: var(--spore); }
+.co-step-lbl { color: var(--soft); }
+.co-step.curr .co-step-lbl, .co-step.done .co-step-lbl { color: var(--void); }
+.co-step-sep { color: var(--line); font-size: 12px; padding-right: 14px; }
+.co-sec-head { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: .18em; text-transform: uppercase; color: var(--void); margin-bottom: 18px; padding-bottom: 10px; border-bottom: .5px solid var(--line); }
+.co-sub { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); margin-bottom: 12px; margin-top: 16px; }
+.field-row { display: grid; gap: 14px; margin-bottom: 14px; }
+.field-row.two { grid-template-columns: 1fr 1fr; }
+.field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field label { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); }
+.field input, .field select {
+  background: transparent; border: none; border-bottom: .5px solid var(--line);
+  padding: 9px 0; font-family: 'DM Mono', monospace; font-size: 12px; color: var(--void);
+  outline: none; width: 100%; -webkit-appearance: none; transition: border-color .15s;
+}
+.field input:focus, .field select:focus { border-bottom-color: var(--void); }
+.field input::placeholder { color: #bbb; }
+.field select option { background: var(--bone); }
+
+.ship-opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; }
+.ship-opt { border: .5px solid var(--line); padding: 14px 16px; cursor: none; display: flex; align-items: center; gap: 14px; transition: .15s; }
+.ship-opt:hover { border-color: #aaa; }
+.ship-opt.sel { border-color: var(--void); background: rgba(10,10,10,.03); }
+.ship-radio { width: 16px; height: 16px; border: .5px solid #aaa; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ship-opt.sel .ship-radio { border-color: var(--void); }
+.ship-rd { width: 8px; height: 8px; border-radius: 50%; background: var(--void); display: none; }
+.ship-opt.sel .ship-rd { display: block; }
+.ship-info { flex: 1; }
+.ship-name { font-size: 11px; color: var(--void); letter-spacing: .05em; }
+.ship-desc { font-size: 8px; color: var(--soft); margin-top: 2px; }
+.ship-cost { font-size: 11px; color: var(--void); }
+
+.pay-tabs { display: flex; gap: 0; margin-bottom: 18px; border: .5px solid var(--line); }
+.pt { flex: 1; padding: 10px; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); cursor: none; text-align: center; border-right: .5px solid var(--line); background: transparent; border-top: none; border-bottom: none; border-left: none; transition: .15s; }
+.pt:last-child { border-right: none; }
+.pt.active { background: var(--void); color: var(--bone); }
+.pc { display: none; }
+.pc.active { display: block; }
+.bank-list { display: flex; flex-direction: column; gap: 8px; }
+.bank-item { border: .5px solid var(--line); padding: 12px 16px; cursor: none; display: flex; justify-content: space-between; align-items: center; transition: .15s; }
+.bank-item:hover { border-color: #aaa; }
+.bank-item.sel { border-color: var(--void); }
+.bank-name { font-size: 11px; color: var(--void); }
+.bank-fee { font-size: 8px; color: var(--soft); margin-top: 2px; }
+.wallet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.wallet-item { border: .5px solid var(--line); padding: 14px; cursor: none; display: flex; flex-direction: column; align-items: center; gap: 6px; transition: .15s; }
+.wallet-item:hover { border-color: #aaa; }
+.wallet-item.sel { border-color: var(--void); background: rgba(10,10,10,.03); }
+.w-dot { width: 12px; height: 12px; border-radius: 50%; }
+.w-name { font-size: 10px; color: var(--void); letter-spacing: .08em; }
+.card-icons { display: flex; gap: 8px; margin-bottom: 14px; }
+.ci { padding: 4px 10px; border: .5px solid var(--line); font-size: 8px; color: var(--soft); letter-spacing: .1em; }
+
+.co-sum-items { display: flex; flex-direction: column; gap: 0; margin-bottom: 14px; }
+.co-si { display: grid; grid-template-columns: 48px 1fr auto; gap: 10px; padding: 12px 0; border-bottom: .5px solid #D0CBB9; align-items: center; }
+.co-si-thumb { width: 48px; height: 60px; background: var(--void); display: flex; align-items: center; justify-content: center; position: relative; flex-shrink: 0; }
+.co-si-thumb::before { content: ''; position: absolute; inset: 5px; border: .5px solid #333; }
+.co-si-thumb-txt { font-family: 'Barlow Condensed', sans-serif; font-size: 7px; font-weight: 800; color: #555; }
+.co-si-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--void); }
+.co-si-var { font-size: 8px; color: var(--soft); margin-top: 2px; }
+.co-si-price { font-size: 10px; color: var(--void); }
+.co-promo { display: flex; gap: 0; margin-bottom: 14px; }
+.co-promo input { flex: 1; background: transparent; border: .5px solid var(--line); border-right: none; padding: 9px 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--void); outline: none; }
+.co-promo input::placeholder { color: #bbb; }
+.co-promo-btn { background: var(--void); border: none; padding: 9px 12px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--bone); cursor: none; }
+.co-sum-rows { display: flex; flex-direction: column; gap: 5px; border-top: .5px solid var(--line); padding-top: 12px; }
+.co-sr { display: flex; justify-content: space-between; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.co-sr .k { color: var(--soft); }
+.co-sr .v { color: var(--void); }
+.co-sr.big { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 18px; letter-spacing: .04em; border-top: .5px solid var(--line); padding-top: 10px; margin-top: 4px; }
+
+.co-bottom { display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; border-top: .5px solid var(--line); }
+.co-back { background: none; border: none; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--soft); cursor: none; }
+.co-back:hover { color: var(--void); }
+.co-next {
+  background: var(--void); border: none; padding: 14px 36px;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px;
+  letter-spacing: .3em; text-transform: uppercase; color: var(--bone); cursor: none; transition: .15s;
+}
+.co-next:hover { background: var(--mid); }
+.co-next.pay { background: var(--spore); color: var(--void); }
+
+/* ── CONFIRMATION PAGE ── */
+.conf-layout { display: grid; grid-template-columns: 1fr 400px; min-height: calc(100vh - 52px); }
+.conf-main { padding: 48px 48px; border-right: .5px solid var(--line); }
+.conf-check { width: 56px; height: 56px; background: var(--spore); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 24px; animation: pop .4s cubic-bezier(.22,1,.36,1); }
+@keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+.conf-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 56px; letter-spacing: .04em; text-transform: uppercase; color: var(--void); line-height: .9; margin-bottom: 8px; }
+.conf-sub { font-family: 'Cormorant', serif; font-style: italic; font-size: 18px; color: var(--soft); margin-bottom: 28px; }
+.conf-order-num { display: inline-block; padding: 8px 16px; border: .5px solid var(--line); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--void); margin-bottom: 32px; }
+.conf-timeline { display: flex; gap: 0; margin-bottom: 32px; overflow-x: auto; }
+.ct-step { flex: 1; min-width: 80px; position: relative; padding-bottom: 16px; }
+.ct-dot { width: 10px; height: 10px; background: var(--spore); margin-bottom: 8px; }
+.ct-dot.off { background: var(--line); }
+.ct-line { position: absolute; top: 4px; left: 10px; right: 0; height: .5px; background: var(--line); }
+.ct-step:last-child .ct-line { display: none; }
+.ct-label { font-size: 8px; letter-spacing: .15em; text-transform: uppercase; color: var(--soft); }
+.ct-date { font-size: 10px; color: var(--void); margin-top: 2px; }
+.conf-blocks { display: flex; flex-direction: column; gap: 0; margin-bottom: 32px; }
+.conf-block { padding: 16px 0; border-bottom: .5px solid var(--line); }
+.cb-lbl { font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+.cb-val { font-size: 12px; color: var(--void); line-height: 1.8; }
+.conf-actions { display: flex; gap: 10px; }
+.ca-btn { padding: 12px 24px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; cursor: none; border: none; transition: .15s; }
+.ca-pri { background: var(--void); color: var(--bone); }
+.ca-sec { background: transparent; border: .5px solid var(--line) !important; color: var(--void); }
+.conf-social { margin-top: 28px; padding: 20px; background: var(--void); }
+.conf-social-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: .2em; text-transform: uppercase; color: var(--bone); margin-bottom: 4px; }
+.conf-social-sub { font-size: 9px; color: var(--soft); letter-spacing: .08em; margin-bottom: 12px; }
+.conf-social-btns { display: flex; gap: 8px; }
+.csb { border: .5px solid #2a2a2a; padding: 7px 16px; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: #555; cursor: none; background: transparent; }
+.conf-side { padding: 28px 28px; background: var(--sand); }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--void);
+  padding: 48px 36px 28px;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  border-top: .5px solid #1a1a1a;
+}
+.footer-brand { display: flex; flex-direction: column; gap: 12px; }
+.footer-logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 16px; letter-spacing: .35em; color: var(--bone); text-transform: uppercase; }
+.footer-tagline { font-family: 'Cormorant', serif; font-style: italic; font-size: 14px; color: var(--soft); line-height: 1.6; }
+.footer-copy { font-size: 8px; letter-spacing: .12em; text-transform: uppercase; color: #3a3a3a; margin-top: 8px; }
+.footer-col h4 { font-size: 9px; letter-spacing: .25em; text-transform: uppercase; color: var(--soft); margin-bottom: 14px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.footer-col li button { background: none; border: none; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .05em; color: #3a3a3a; cursor: none; transition: color .15s; padding: 0; text-align: left; }
+.footer-col li button:hover { color: var(--bone); }
+
+/* ── NOTIFY MODAL ── */
+.notify-modal {
+  position: fixed; inset: 0; z-index: 900;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(10,10,10,.7);
+  opacity: 0; pointer-events: none; transition: opacity .25s;
+}
+.notify-modal.open { opacity: 1; pointer-events: all; }
+.nm-box { background: var(--bone); padding: 36px; width: 420px; max-width: 90vw; animation: nm-in .3s cubic-bezier(.22,1,.36,1); }
+@keyframes nm-in { from { transform: translateY(16px) scale(.98); } to { transform: translateY(0) scale(1); } }
+.nm-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: .08em; text-transform: uppercase; color: var(--void); margin-bottom: 6px; }
+.nm-sub { font-size: 10px; color: var(--soft); letter-spacing: .08em; line-height: 1.8; margin-bottom: 20px; }
+.nm-input-row { display: flex; gap: 0; }
+.nm-input { flex: 1; background: transparent; border: .5px solid var(--line); border-right: none; padding: 12px 14px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--void); outline: none; }
+.nm-input::placeholder { color: #bbb; }
+.nm-submit { background: var(--void); border: none; padding: 12px 18px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--bone); cursor: none; }
+.nm-close { margin-top: 14px; background: none; border: none; font-size: 9px; letter-spacing: .15em; text-transform: uppercase; color: var(--soft); cursor: none; font-family: 'DM Mono', monospace; }
+.nm-close:hover { color: var(--void); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: var(--void); color: var(--bone);
+  padding: 12px 24px; font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+  z-index: 800; opacity: 0; transition: opacity .2s, transform .2s;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.spore { background: var(--spore); color: var(--void); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 18px; }
+  .nav-center { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { display: none; }
+  .hero-title { font-size: 60px; }
+  .pd-layout, .co-layout, .conf-layout { grid-template-columns: 1fr; }
+  .co-summary, .conf-side { display: none; }
+  .prod-grid { grid-template-columns: repeat(2, 1fr); }
+  .prod-grid.two-col { grid-template-columns: 1fr; }
+  .feat-wide { grid-column: span 1; }
+  .countdown-banner { flex-direction: column; gap: 12px; align-items: flex-start; }
+  footer { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .cart-drawer { width: 100%; max-width: 380px; }
+  .wishlist-drawer { width: 100%; max-width: 360px; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: 48px; }
+  .collection-section { padding: 0 16px 36px; }
+  .pd-info, .co-form { padding: 20px 18px; }
+  .co-bottom { padding: 16px 18px; }
+  footer { grid-template-columns: 1fr; }
+  .cb-num { font-size: 26px; min-width: 38px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-box">
+    <div class="search-label">Search Symbioses Studios</div>
+    <div class="search-input-wrap">
+      <input class="search-input" id="searchInput" placeholder="TYPE TO SEARCH..." oninput="doSearch(this.value)" autocomplete="off">
+      <button class="search-close" onclick="toggleSearch()">ESC</button>
+    </div>
+    <div class="search-filters">
+      <button class="sf-btn active" onclick="searchFilter(this,'all')">All</button>
+      <button class="sf-btn" onclick="searchFilter(this,'tops')">Tops</button>
+      <button class="sf-btn" onclick="searchFilter(this,'outerwear')">Outerwear</button>
+      <button class="sf-btn" onclick="searchFilter(this,'bottoms')">Bottoms</button>
+      <button class="sf-btn" onclick="searchFilter(this,'accessories')">Accessories</button>
+    </div>
+  </div>
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<!-- CART BACKDROP -->
+<div class="cart-backdrop" id="cartBackdrop" onclick="closeCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cd-header">
+    <div class="cd-title">Cart <span id="cdCount" style="font-weight:400;font-size:14px;color:var(--soft);">(2)</span></div>
+    <button class="cd-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cd-items" id="cdItems"></div>
+  <div class="cd-footer">
+    <div class="cd-promo">
+      <input placeholder="Promo code — try MUTUAL25" id="cdPromoInput">
+      <button class="cd-promo-btn" onclick="applyPromo()">Apply</button>
+    </div>
+    <div class="cd-sum">
+      <div class="cd-sum-row"><span class="k">Subtotal</span><span class="v" id="cdSubtotal">IDR 1.340.000</span></div>
+      <div class="cd-sum-row"><span class="k">Shipping</span><span class="v">Dihitung saat checkout</span></div>
+      <div class="cd-sum-row" id="cdDiscRow" style="display:none"><span class="k" style="color:var(--rust)">Diskon</span><span class="v" style="color:var(--rust)" id="cdDiscAmt"></span></div>
+      <div class="cd-sum-row big"><span class="k">Estimasi</span><span class="v" id="cdTotal">IDR 1.340.000</span></div>
+    </div>
+    <button class="cd-checkout" onclick="navigate('checkout')">Checkout →</button>
+    <button class="cd-shop" onclick="closeCart()">Lanjut Belanja</button>
+  </div>
+</div>
+
+<!-- WISHLIST BACKDROP -->
+<div class="cart-backdrop" id="wlBackdrop" onclick="closeWishlist()"></div>
+
+<!-- WISHLIST DRAWER -->
+<div class="wishlist-drawer" id="wlDrawer">
+  <div class="wd-header">
+    <div class="wd-title">Wishlist <span id="wdCount" style="font-weight:400;font-size:13px;color:var(--soft);">(0)</span></div>
+    <button class="wd-close" onclick="closeWishlist()">✕</button>
+  </div>
+  <div class="wd-items" id="wdItems">
+    <div class="wd-empty">
+      <div class="wd-empty-title">Belum Ada Item</div>
+      <div class="wd-empty-sub">Klik ♡ di produk mana saja<br>untuk simpan ke wishlist kamu.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFY MODAL -->
+<div class="notify-modal" id="notifyModal">
+  <div class="nm-box">
+    <div class="nm-title">Notify Me</div>
+    <div class="nm-sub">Masuk waitlist — kamu dapat notifikasi<br>email saat item ini restock.</div>
+    <div class="nm-input-row">
+      <input class="nm-input" placeholder="email@kamu.com" type="email">
+      <button class="nm-submit" onclick="closeNotify();showToast('✓ Terdaftar ke waitlist!','spore')">Daftar</button>
+    </div>
+    <button class="nm-close" onclick="closeNotify()">Tutup</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- NAVIGATION -->
+<nav>
+  <a class="nav-logo" onclick="navigate('home')">Symbioses Studios</a>
+  <div class="nav-center">
+    <button class="nav-link active" id="nl-home" onclick="navigate('home')">Home</button>
+    <button class="nav-link" id="nl-collection" onclick="navigate('collection')">Collection</button>
+    <button class="nav-link" id="nl-about" onclick="navigate('about')">About</button>
+  </div>
+  <div class="nav-right">
+    <button class="nav-icon-btn" onclick="toggleSearch()" title="Search">⌕</button>
+    <button class="nav-icon-btn" onclick="openWishlist()" title="Wishlist">♡</button>
+    <button class="nav-icon-btn" onclick="openCart()" style="position:relative;" title="Cart">
+      🛒 <div class="cart-badge" id="cartBadge">2</div>
+    </button>
+  </div>
+</nav>
+
+<!-- ============================================================ PAGE: HOME ============================================================ -->
+<div class="page active" id="page-home">
+  <!-- COUNTDOWN BANNER -->
+  <div class="countdown-banner">
+    <div class="cb-left">
+      <div class="cb-eyebrow">Drop 002 — Coming Soon</div>
+      <div class="cb-title">Archive Series · AW25 · Jakarta</div>
+    </div>
+    <div class="cb-timer">
+      <div class="cb-unit"><div class="cb-num" id="cd-days">00</div><div class="cb-label">Days</div></div>
+      <div class="cb-sep">:</div>
+      <div class="cb-unit"><div class="cb-num" id="cd-hours">00</div><div class="cb-label">Hrs</div></div>
+      <div class="cb-sep">:</div>
+      <div class="cb-unit"><div class="cb-num" id="cd-mins">00</div><div class="cb-label">Min</div></div>
+      <div class="cb-sep">:</div>
+      <div class="cb-unit"><div class="cb-num" id="cd-secs">00</div><div class="cb-label">Sec</div></div>
+    </div>
+    <div class="cb-right">
+      <div class="cb-msg">Limited availability · Be first in line</div>
+      <button class="cb-notify" onclick="openNotify()">Notify Me →</button>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Drop 001 <span>— Mutual Ground</span></span>
+      <span class="ticker-item">SS25 <span>— Jakarta</span></span>
+      <span class="ticker-item">Free shipping <span>IDR 500k+</span></span>
+      <span class="ticker-item">12 pieces <span>— limited run</span></span>
+      <span class="ticker-item">Drop 002 <span>— Coming Soon</span></span>
+      <span class="ticker-item">Independent <span>Since Day One</span></span>
+      <span class="ticker-item">Drop 001 <span>— Mutual Ground</span></span>
+      <span class="ticker-item">SS25 <span>— Jakarta</span></span>
+      <span class="ticker-item">Free shipping <span>IDR 500k+</span></span>
+      <span class="ticker-item">12 pieces <span>— limited run</span></span>
+      <span class="ticker-item">Drop 002 <span>— Coming Soon</span></span>
+      <span class="ticker-item">Independent <span>Since Day One</span></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">SS25 · Drop 001 · Now Live</div>
+        <div class="hero-title">Mutual<br>Ground</div>
+        <div class="hero-sub">Street meets structure.<br>Independent since day one.</div>
+      </div>
+      <div class="hero-bottom">
+        <button class="hero-cta" onclick="navigate('collection')">Shop Drop 001 →</button>
+        <div class="hero-units">6 units remaining</div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img hi-a"><div class="hero-img-txt">SYS</div></div>
+      <div class="hero-img hi-b"><div class="hero-img-txt">SYS</div></div>
+      <div class="hero-img hi-c"><div class="hero-img-txt">SYS</div></div>
+    </div>
+  </section>
+
+  <!-- FEATURED PICKS -->
+  <section class="collection-section">
+    <div class="section-head">
+      <div class="section-title">Featured Pieces</div>
+      <button style="background:none;border:none;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--soft);cursor:none;" onclick="navigate('collection')">View All →</button>
+    </div>
+    <div class="prod-grid" style="margin-top:1px;" id="featuredGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-logo">Symbioses Studios</div>
+      <div class="footer-tagline">Two things, one identity.<br>Street × Runway. Craft × Kultur.</div>
+      <div class="footer-copy">© 2025 Symbioses Studios. Jakarta, Indonesia.</div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><button onclick="navigate('collection')">Drop 001 — Mutual Ground</button></li>
+        <li><button onclick="openNotify()">Drop 002 — Coming Soon</button></li>
+        <li><button onclick="openWishlist()">Wishlist</button></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Info</h4>
+      <ul>
+        <li><button onclick="navigate('about')">About</button></li>
+        <li><button>Size Guide</button></li>
+        <li><button>Shipping & Returns</button></li>
+        <li><button>Care Instructions</button></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul>
+        <li><button>Instagram</button></li>
+        <li><button>TikTok</button></li>
+        <li><button>WhatsApp</button></li>
+        <li><button>Email Us</button></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+<!-- ============================================================ PAGE: COLLECTION ============================================================ -->
+<div class="page" id="page-collection">
+  <!-- HERO -->
+  <div style="background:var(--void);padding:40px 36px 0;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;">
+    <div style="padding-bottom:32px;">
+      <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--soft);margin-bottom:10px;">SS25 · Drop 001</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:72px;letter-spacing:.04em;text-transform:uppercase;color:var(--bone);line-height:.88;margin-bottom:10px;">Mutual<br>Ground</div>
+      <div style="font-family:'Cormorant',serif;font-style:italic;font-size:16px;color:var(--soft);margin-bottom:20px;">Street meets structure. Independent since day one.</div>
+      <div style="display:flex;gap:20px;">
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--bone);">12</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Pieces</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--rust);">6</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Left</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--bone);">4</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Colorways</div></div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:flex-end;gap:10px;">
+      <div style="width:120px;height:200px;background:#111;border-top:.5px solid #1a1a1a;display:flex;align-items:center;justify-content:center;position:relative;"><div style="position:absolute;inset:10px;border:.5px solid #1a1a1a;"></div><span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;letter-spacing:.2em;color:#2a2a2a;z-index:1;">SYS</span></div>
+      <div style="width:150px;height:260px;background:#111;border-top:.5px solid #1a1a1a;display:flex;align-items:center;justify-content:center;position:relative;"><div style="position:absolute;inset:10px;border:.5px solid #1a1a1a;"></div><span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;font-weight:800;letter-spacing:.2em;color:#2a2a2a;z-index:1;">SYS</span></div>
+    </div>
+  </div>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Drop 001 <span>Now Live</span></span>
+      <span class="ticker-item">12 Pieces <span>Limited Run</span></span>
+      <span class="ticker-item">SS25 <span>Jakarta</span></span>
+      <span class="ticker-item">Free Ship <span>IDR 500k+</span></span>
+      <span class="ticker-item">Drop 001 <span>Now Live</span></span>
+      <span class="ticker-item">12 Pieces <span>Limited Run</span></span>
+      <span class="ticker-item">SS25 <span>Jakarta</span></span>
+      <span class="ticker-item">Free Ship <span>IDR 500k+</span></span>
+    </div>
+  </div>
+
+  <!-- FILTER + GRID -->
+  <section class="collection-section">
+    <div class="filter-row" style="margin-top:0;">
+      <div class="filter-group" id="catFilters">
+        <button class="fb active" onclick="filterProducts(this,'all')">All (12)</button>
+        <button class="fb" onclick="filterProducts(this,'tops')">Tops (5)</button>
+        <button class="fb" onclick="filterProducts(this,'outerwear')">Outerwear (3)</button>
+        <button class="fb" onclick="filterProducts(this,'bottoms')">Bottoms (2)</button>
+        <button class="fb" onclick="filterProducts(this,'accessories')">Accessories (2)</button>
+        <button class="fb" id="inStockBtn" onclick="toggleInStock(this)" style="border-color:var(--rust);color:var(--rust);">In Stock Only</button>
+      </div>
+      <div class="sort-wrap">
+        <span class="sort-label" id="resCount">12 pieces</span>
+        <select class="sort-sel" onchange="sortProducts(this.value)">
+          <option value="featured">Featured</option>
+          <option value="price-asc">Price: Low–High</option>
+          <option value="price-desc">Price: High–Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="prod-grid" id="collectionGrid"></div>
+  </section>
+
+  <footer>
+    <div class="footer-brand">
+      <div class="footer-logo">Symbioses Studios</div>
+      <div class="footer-tagline">Two things, one identity.</div>
+      <div class="footer-copy">© 2025 Symbioses Studios.</div>
+    </div>
+    <div class="footer-col"><h4>Shop</h4><ul><li><button onclick="navigate('collection')">Drop 001</button></li></ul></div>
+    <div class="footer-col"><h4>Info</h4><ul><li><button onclick="navigate('about')">About</button></li></ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul><li><button>Instagram</button></li><li><button>TikTok</button></li></ul></div>
+  </footer>
+</div>
+
+<!-- ============================================================ PAGE: PRODUCT DETAIL ============================================================ -->
+<div class="page" id="page-product">
+  <div class="pd-layout">
+    <div class="pd-gallery">
+      <div class="pd-drop-badge">Drop 001</div>
+      <div class="pd-main-img">
+        <div class="pd-ph" id="pdImgLabel">SYS · 001</div>
+      </div>
+      <div class="pd-thumbs">
+        <div class="pd-thumb active"></div>
+        <div class="pd-thumb"></div>
+        <div class="pd-thumb"></div>
+        <div class="pd-thumb"></div>
+      </div>
+    </div>
+    <div class="pd-info">
+      <div class="pd-meta">
+        <div class="pd-coll" id="pdColl">Mutual Ground — SS25</div>
+        <div class="pd-sku" id="pdSku">SKU-SYS-001</div>
+      </div>
+      <div class="pd-name" id="pdName">Void Overshirt</div>
+      <div class="pd-subtitle" id="pdSub">Oversized workwear silhouette, washed black</div>
+      <div class="pd-price" id="pdPrice">IDR 895.000</div>
+      <div class="pd-divider"></div>
+      <div class="pd-size-head"><span>Select Size</span><a href="#">Size Guide →</a></div>
+      <div class="size-grid" id="pdSizes"></div>
+      <div class="pd-color-head" id="pdColorHead">Color — <span style="font-style:italic">Void Black</span></div>
+      <div class="color-grid" id="pdColors"></div>
+      <button class="pd-add" id="pdAddBtn" onclick="addCurrentToCart()">+ Add to Cart</button>
+      <button class="pd-wish-btn" id="pdWishBtn" onclick="wishCurrentProduct()">♡ &nbsp; Save to Wishlist</button>
+      <div class="pd-detail-list" id="pdDetails"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ PAGE: CHECKOUT ============================================================ -->
+<div class="page" id="page-checkout">
+  <div class="co-layout">
+    <div>
+      <div class="co-form">
+        <!-- STEPS -->
+        <div class="co-steps">
+          <div class="co-step done" id="cst1"><div class="co-step-num">✓</div><div class="co-step-lbl">Info</div></div>
+          <div class="co-step-sep">›</div>
+          <div class="co-step curr" id="cst2"><div class="co-step-num">2</div><div class="co-step-lbl">Shipping</div></div>
+          <div class="co-step-sep">›</div>
+          <div class="co-step" id="cst3"><div class="co-step-num">3</div><div class="co-step-lbl">Payment</div></div>
+          <div class="co-step-sep">›</div>
+          <div class="co-step" id="cst4"><div class="co-step-num">4</div><div class="co-step-lbl">Confirm</div></div>
+        </div>
+
+        <!-- STEP CONTENT -->
+        <div id="co-s1">
+          <div class="co-sec-head">Contact & Address</div>
+          <div class="co-sub">Contact</div>
+          <div class="field-row two">
+            <div class="field"><label>First Name</label><input placeholder="Rizky"></div>
+            <div class="field"><label>Last Name</label><input placeholder="Pratama"></div>
+          </div>
+          <div class="field-row"><div class="field"><label>Email</label><input type="email" placeholder="rizky@email.com"></div></div>
+          <div class="field-row"><div class="field"><label>Phone (WhatsApp)</label><input placeholder="+62 812 0000 0000"></div></div>
+          <div class="co-sub">Alamat</div>
+          <div class="field-row"><div class="field"><label>Jalan</label><input placeholder="Jl. Kemang Raya No. 45"></div></div>
+          <div class="field-row"><div class="field"><label>Apt / Unit (opsional)</label><input placeholder="Apt 3B, Lantai 2"></div></div>
+          <div class="field-row three">
+            <div class="field"><label>Kota</label><input placeholder="Jakarta Selatan"></div>
+            <div class="field"><label>Provinsi</label><select><option>DKI Jakarta</option><option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option><option>Banten</option><option>Lainnya</option></select></div>
+            <div class="field"><label>Kode Pos</label><input placeholder="12730"></div>
+          </div>
+        </div>
+
+        <div id="co-s2" style="display:none;">
+          <div class="co-sec-head">Metode Pengiriman</div>
+          <div class="ship-opts">
+            <div class="ship-opt" onclick="selectShip(this,15000)"><div class="ship-radio"><div class="ship-rd"></div></div><div class="ship-info"><div class="ship-name">JNE Reguler</div><div class="ship-desc">3–5 hari kerja</div></div><div class="ship-cost">IDR 15.000</div></div>
+            <div class="ship-opt sel" onclick="selectShip(this,25000)"><div class="ship-radio"><div class="ship-rd"></div></div><div class="ship-info"><div class="ship-name">JNE YES — Yakin Esok Sampai</div><div class="ship-desc">1–2 hari kerja</div></div><div class="ship-cost">IDR 25.000</div></div>
+            <div class="ship-opt" onclick="selectShip(this,18000)"><div class="ship-radio"><div class="ship-rd"></div></div><div class="ship-info"><div class="ship-name">SiCepat Reguler</div><div class="ship-desc">2–3 hari kerja</div></div><div class="ship-cost">IDR 18.000</div></div>
+            <div class="ship-opt" onclick="selectShip(this,35000)"><div class="ship-radio"><div class="ship-rd"></div></div><div class="ship-info"><div class="ship-name">GoSend Same Day</div><div class="ship-desc">Jabodetabek · 4–6 jam</div></div><div class="ship-cost">IDR 35.000</div></div>
+          </div>
+          <div class="field-row"><div class="field"><label>Catatan untuk kurir (opsional)</label><input placeholder="Titip di pos satpam"></div></div>
+        </div>
+
+        <div id="co-s3" style="display:none;">
+          <div class="co-sec-head">Metode Pembayaran</div>
+          <div class="pay-tabs">
+            <button class="pt active" onclick="payTab(this,'card')">Kartu</button>
+            <button class="pt" onclick="payTab(this,'transfer')">Transfer</button>
+            <button class="pt" onclick="payTab(this,'wallet')">E-Wallet</button>
+            <button class="pt" onclick="payTab(this,'cod')">COD</button>
+          </div>
+          <div class="pc active" id="pc-card">
+            <div class="card-icons"><div class="ci">VISA</div><div class="ci">MC</div><div class="ci">GPN</div></div>
+            <div class="field-row"><div class="field"><label>Nomor Kartu</label><input placeholder="1234  5678  9012  3456"></div></div>
+            <div class="field-row"><div class="field"><label>Nama di Kartu</label><input placeholder="RIZKY PRATAMA"></div></div>
+            <div class="field-row two">
+              <div class="field"><label>Berlaku s/d</label><input placeholder="MM / YY"></div>
+              <div class="field"><label>CVV</label><input type="password" placeholder="•••" maxlength="4"></div>
+            </div>
+          </div>
+          <div class="pc" id="pc-transfer">
+            <div class="bank-list">
+              <div class="bank-item sel" onclick="selBank(this)"><div><div class="bank-name">Bank BCA</div><div class="bank-fee">Tanpa biaya admin</div></div><div style="font-size:8px;color:var(--soft);">Virtual Account</div></div>
+              <div class="bank-item" onclick="selBank(this)"><div><div class="bank-name">Bank Mandiri</div><div class="bank-fee">Tanpa biaya admin</div></div><div style="font-size:8px;color:var(--soft);">Virtual Account</div></div>
+              <div class="bank-item" onclick="selBank(this)"><div><div class="bank-name">Bank BRI</div><div class="bank-fee">Tanpa biaya admin</div></div><div style="font-size:8px;color:var(--soft);">Virtual Account</div></div>
+              <div class="bank-item" onclick="selBank(this)"><div><div class="bank-name">Bank BNI</div><div class="bank-fee">Tanpa biaya admin</div></div><div style="font-size:8px;color:var(--soft);">Virtual Account</div></div>
+            </div>
+            <div style="margin-top:14px;padding:12px;border:.5px solid var(--line);font-size:9px;color:var(--soft);line-height:1.8;">Nomor VA dikirim ke email & WhatsApp. Bayar dalam 24 jam.</div>
+          </div>
+          <div class="pc" id="pc-wallet">
+            <div class="wallet-grid">
+              <div class="wallet-item sel" onclick="selWallet(this)"><div class="w-dot" style="background:#00AED6;"></div><div class="w-name">GoPay</div></div>
+              <div class="wallet-item" onclick="selWallet(this)"><div class="w-dot" style="background:#1DB954;"></div><div class="w-name">OVO</div></div>
+              <div class="wallet-item" onclick="selWallet(this)"><div class="w-dot" style="background:#ED1C24;"></div><div class="w-name">DANA</div></div>
+              <div class="wallet-item" onclick="selWallet(this)"><div class="w-dot" style="background:#7B68EE;"></div><div class="w-name">ShopeePay</div></div>
+            </div>
+          </div>
+          <div class="pc" id="pc-cod">
+            <div style="padding:24px;border:.5px solid var(--line);text-align:center;">
+              <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;">Cash on Delivery</div>
+              <div style="font-size:10px;color:var(--soft);line-height:1.8;">Bayar tunai saat paket tiba. Khusus Jabodetabek.<br>Siapkan uang pas sesuai total tagihan.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="co-bottom">
+        <button class="co-back" onclick="coBack()">← Kembali</button>
+        <button class="co-next" id="coNextBtn" onclick="coNext()">Lanjut ke Pengiriman →</button>
+      </div>
+    </div>
+    <div class="co-summary">
+      <div class="co-sec-head">Ringkasan Pesanan</div>
+      <div class="co-sum-items">
+        <div class="co-si"><div class="co-si-thumb"><div class="co-si-thumb-txt">SYS</div></div><div><div class="co-si-name">Void Overshirt</div><div class="co-si-var">M · Void Black · ×1</div></div><div class="co-si-price">895k</div></div>
+        <div class="co-si"><div class="co-si-thumb"><div class="co-si-thumb-txt">SYS</div></div><div><div class="co-si-name">Spore Tee</div><div class="co-si-var">L · Bone · ×1</div></div><div class="co-si-price">445k</div></div>
+      </div>
+      <div class="co-promo"><input placeholder="Kode promo — coba MUTUAL25" id="coPromoInput"><button class="co-promo-btn" onclick="applyCoPromo()">Apply</button></div>
+      <div class="co-sum-rows">
+        <div class="co-sr"><span class="k">Subtotal</span><span class="v">IDR 1.340.000</span></div>
+        <div class="co-sr"><span class="k">Pengiriman</span><span class="v" id="coShipAmt">IDR 25.000</span></div>
+        <div class="co-sr" id="coDiscRow" style="display:none"><span class="k" style="color:var(--rust)">Diskon</span><span class="v" style="color:var(--rust)" id="coDiscAmt"></span></div>
+        <div class="co-sr big"><span class="k">Total</span><span class="v" id="coTotal">IDR 1.365.000</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ PAGE: CONFIRMATION ============================================================ -->
+<div class="page" id="page-confirmation">
+  <div class="conf-layout">
+    <div class="conf-main">
+      <div class="conf-check">✓</div>
+      <div class="conf-title">Order<br>Confirmed.</div>
+      <div class="conf-sub">Makasih udah support Symbioses Studios 🤍</div>
+      <div class="conf-order-num">Order #SYS-001-2025-0042</div>
+      <div class="conf-timeline">
+        <div class="ct-step"><div class="ct-dot"></div><div class="ct-line"></div><div class="ct-label">Confirmed</div><div class="ct-date">Now</div></div>
+        <div class="ct-step"><div class="ct-dot"></div><div class="ct-line"></div><div class="ct-label">Processing</div><div class="ct-date">Today</div></div>
+        <div class="ct-step"><div class="ct-dot off"></div><div class="ct-line"></div><div class="ct-label">Shipped</div><div class="ct-date">Tomorrow</div></div>
+        <div class="ct-step"><div class="ct-dot off"></div><div class="ct-line"></div><div class="ct-label">Delivered</div><div class="ct-date">1–2 days</div></div>
+        <div class="ct-step"><div class="ct-dot off"></div><div class="ct-label">Done</div><div class="ct-date">—</div></div>
+      </div>
+      <div class="conf-blocks">
+        <div class="conf-block"><div class="cb-lbl">Dikirim ke</div><div class="cb-val">Rizky Pratama<br>Jl. Kemang Raya No. 45, Jaksel 12730<br>+62 812 3456 7890</div></div>
+        <div class="conf-block"><div class="cb-lbl">Kurir</div><div class="cb-val">JNE YES — Yakin Esok Sampai<br>Est. 1–2 hari kerja</div></div>
+        <div class="conf-block"><div class="cb-lbl">Pembayaran</div><div class="cb-val">GoPay · IDR 1.365.000 · Paid ✓</div></div>
+      </div>
+      <div class="conf-actions">
+        <button class="ca-btn ca-pri">Track Order</button>
+        <button class="ca-btn ca-sec" onclick="navigate('collection')">Lanjut Belanja</button>
+      </div>
+      <div class="conf-social">
+        <div class="conf-social-title">Follow the Drop</div>
+        <div class="conf-social-sub">@symbiosesstudios — jadilah yang pertama tahu soal Drop 002</div>
+        <div class="conf-social-btns">
+          <button class="csb">Instagram</button>
+          <button class="csb">TikTok</button>
+        </div>
+      </div>
+    </div>
+    <div class="conf-side">
+      <div class="co-sec-head">Pesanan Kamu</div>
+      <div class="co-sum-items">
+        <div class="co-si"><div class="co-si-thumb"><div class="co-si-thumb-txt">SYS</div></div><div><div class="co-si-name">Void Overshirt</div><div class="co-si-var">M · Void Black · ×1</div></div><div class="co-si-price">895k</div></div>
+        <div class="co-si"><div class="co-si-thumb"><div class="co-si-thumb-txt">SYS</div></div><div><div class="co-si-name">Spore Tee</div><div class="co-si-var">L · Bone · ×1</div></div><div class="co-si-price">445k</div></div>
+      </div>
+      <div class="co-sum-rows" style="margin-top:10px;">
+        <div class="co-sr"><span class="k">Subtotal</span><span class="v">IDR 1.340.000</span></div>
+        <div class="co-sr"><span class="k">Pengiriman</span><span class="v">IDR 25.000</span></div>
+        <div class="co-sr big"><span class="k">Total Dibayar</span><span class="v">IDR 1.365.000</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ PAGE: ABOUT ============================================================ -->
+<div class="page" id="page-about">
+  <div style="display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 52px);">
+    <div style="background:var(--void);padding:60px 48px;display:flex;flex-direction:column;justify-content:space-between;">
+      <div>
+        <div style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--soft);margin-bottom:16px;">About — Symbioses Studios</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:64px;letter-spacing:.04em;text-transform:uppercase;color:var(--bone);line-height:.9;margin-bottom:24px;">Two<br>Things.<br>One<br>Identity.</div>
+        <div style="font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:var(--soft);line-height:1.5;margin-bottom:32px;">"Symbiosis — when two distinct things thrive together without losing what makes them unique."</div>
+        <div style="font-size:11px;color:#3a3a3a;line-height:2;letter-spacing:.04em;max-width:440px;">Symbioses Studios lahir dari satu pertanyaan: kenapa harus pilih satu? Street atau runway. Vintage atau edge. Craft atau kultur. <br><br>Kami bukan label yang bikin banyak, terus diskon habis. Kami bikin sedikit, dengan niat penuh, lalu biarkan piece itu punya hidup sendiri di tangan orang yang beneran suka.<br><br>Drop 001 — Mutual Ground. Berawal dari workshop kecil di Jakarta Selatan. Dibuat tangan. Dibuat dengan niat.</div>
+      </div>
+      <div style="display:flex;gap:24px;margin-top:40px;">
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:var(--bone);">2025</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Founded</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:var(--bone);">12</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Pieces</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:var(--bone);">1</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">City</div></div>
+        <div><div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:36px;color:var(--spore);">∞</div><div style="font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);">Drops Ahead</div></div>
+      </div>
+    </div>
+    <div style="background:var(--sand);padding:60px 48px;display:flex;flex-direction:column;gap:28px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:18px;letter-spacing:.2em;text-transform:uppercase;color:var(--void);border-bottom:.5px solid var(--line);padding-bottom:14px;">Our Values</div>
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div style="padding:20px;border:.5px solid var(--line);background:var(--bone);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;letter-spacing:.15em;text-transform:uppercase;color:var(--void);margin-bottom:6px;">Craft First</div>
+          <div style="font-size:10px;color:var(--soft);line-height:1.8;">Setiap jahitan diperiksa. Setiap detail diputuskan dengan sadar. Tidak ada yang keluar dari workshop kalau belum layak.</div>
+        </div>
+        <div style="padding:20px;border:.5px solid var(--line);background:var(--bone);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;letter-spacing:.15em;text-transform:uppercase;color:var(--void);margin-bottom:6px;">Limited Always</div>
+          <div style="font-size:10px;color:var(--soft);line-height:1.8;">Kami tidak restock. Setiap drop adalah momen. Kalau kamu punya piece Symbioses, kamu punya sesuatu yang tidak semua orang bisa dapat.</div>
+        </div>
+        <div style="padding:20px;border:.5px solid var(--line);background:var(--bone);">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:16px;letter-spacing:.15em;text-transform:uppercase;color:var(--void);margin-bottom:6px;">Community Over Clout</div>
+          <div style="font-size:10px;color:var(--soft);line-height:1.8;">Kami bukan label yang kejar followers. Kami bangun komunitas yang beneran ngerti kenapa fashion bisa jadi lebih dari sekadar baju.</div>
+        </div>
+      </div>
+      <button style="background:var(--void);border:none;padding:16px;font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--bone);cursor:none;margin-top:auto;width:100%;" onclick="navigate('collection')">Shop Drop 001 →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SYMBIOSES STUDIOS — SITE JS
+   ============================================================ */
+
+/* ── CURSOR ── */
+var cur = document.getElementById('cursor');
+document.addEventListener('mousemove', function(e) {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+});
+document.addEventListener('mouseover', function(e) {
+  if (e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.hasAttribute('onclick')) {
+    cur.classList.add('hover');
+  } else {
+    cur.classList.remove('hover');
+  }
+});
+
+/* ── PRODUCTS DATA ── */
+var products = [
+  { id:1, name:'Void Overshirt', cat:'outerwear', price:895000, badge:'low', badgeTxt:'3 left', colors:['#0A0A0A','#F2EDE6','#C84B31','#5C5545'], colorNames:['Void Black','Bone','Rust','Moss'], sizes:['XS','S','M','L','XL','XXL'], soldSizes:['XS','XXL'], material:'100% Enzyme-washed Cotton Twill', fit:'Oversized — size down if preferred', origin:'Jakarta, ID', units:'3 remaining' },
+  { id:2, name:'Spore Tee', cat:'tops', price:445000, badge:'new', badgeTxt:'New', colors:['#0A0A0A','#F2EDE6','#C8F135'], colorNames:['Void Black','Bone','Acid Spore'], sizes:['XS','S','M','L','XL'], soldSizes:[], material:'220gsm Ringspun Cotton', fit:'Regular unisex', origin:'Jakarta, ID', units:'Available' },
+  { id:3, name:'Mutual Cargo', cat:'bottoms', price:745000, badge:'', colors:['#0A0A0A','#5C5545','#8C7B6B'], colorNames:['Void Black','Moss','Sand'], sizes:['S','M','L','XL','XXL'], soldSizes:[], material:'Ripstop Cotton Blend', fit:'Relaxed — true to size', origin:'Jakarta, ID', units:'Available' },
+  { id:4, name:'Ground Jacket', cat:'outerwear', price:1250000, badge:'out', badgeTxt:'Sold Out', colors:['#0A0A0A','#5C5545'], colorNames:['Void Black','Moss'], sizes:['S','M','L','XL'], soldSizes:['S','M','L','XL'], material:'Waxed Canvas', fit:'Boxy — one size up recommended', origin:'Jakarta, ID', units:'Sold out' },
+  { id:5, name:'Root LS Tee', cat:'tops', price:545000, badge:'low', badgeTxt:'5 left', colors:['#0A0A0A','#3D3328'], colorNames:['Void Black','Dark Earth'], sizes:['S','M','L'], soldSizes:[], material:'300gsm Heavyweight Cotton', fit:'Oversized', origin:'Jakarta, ID', units:'5 remaining' },
+  { id:6, name:'SYS Cap', cat:'accessories', price:295000, badge:'', colors:['#0A0A0A','#F2EDE6','#C8F135','#C84B31'], colorNames:['Void Black','Bone','Spore','Rust'], sizes:['One Size'], soldSizes:[], material:'6-panel Structured Cotton', fit:'One size fits all', origin:'Jakarta, ID', units:'Available' },
+  { id:7, name:'Bone Track Pant', cat:'bottoms', price:645000, badge:'new', badgeTxt:'New', colors:['#F2EDE6','#888888'], colorNames:['Bone Ivory','Slate'], sizes:['S','M','L','XL'], soldSizes:[], material:'Interlock Cotton Jersey', fit:'Tapered — true to size', origin:'Jakarta, ID', units:'Available' },
+  { id:8, name:'Spore Hoodie', cat:'outerwear', price:745000, badge:'', colors:['#C8F135','#0A0A0A'], colorNames:['Acid Spore','Void Black'], sizes:['S','M','L','XL'], soldSizes:[], material:'400gsm French Terry', fit:'Relaxed', origin:'Jakarta, ID', units:'Available' },
+  { id:9, name:'Rust Signal Tee', cat:'tops', price:445000, badge:'', colors:['#C84B31','#0A0A0A'], colorNames:['Rust','Void Black'], sizes:['XS','S','M','L','XL','XXL'], soldSizes:[], material:'220gsm Ringspun Cotton', fit:'Regular', origin:'Jakarta, ID', units:'Available' },
+  { id:10, name:'Tote — Mutual', cat:'accessories', price:195000, badge:'', colors:['#0A0A0A','#F2EDE6'], colorNames:['Void Black','Bone'], sizes:['One Size'], soldSizes:[], material:'12oz Natural Canvas', fit:'One size', origin:'Jakarta, ID', units:'Available' },
+  { id:11, name:'Archive Tee Vol.1', cat:'tops', price:395000, badge:'low', badgeTxt:'2 left', colors:['#3D3328'], colorNames:['Dark Earth'], sizes:['M','L'], soldSizes:[], material:'230gsm Combed Cotton', fit:'Oversized', origin:'Jakarta, ID', units:'2 remaining' },
+];
+
+/* ── CART STATE ── */
+var cart = [
+  { productId:1, name:'Void Overshirt', variant:'M · Void Black', price:895000, qty:1 },
+  { productId:2, name:'Spore Tee', variant:'L · Bone', price:445000, qty:1 }
+];
+var wishlist = [];
+var cartDiscount = 0;
+var currentProduct = products[0];
+var coStep = 1;
+var shipCost = 25000;
+var inStockOnly = false;
+var currentCatFilter = 'all';
+
+/* ── NAVIGATION ── */
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-link').forEach(function(l) { l.classList.remove('active'); });
+  document.getElementById('page-' + page).classList.add('active');
+  var nl = document.getElementById('nl-' + page);
+  if (nl) nl.classList.add('active');
+  window.scrollTo(0, 0);
+  if (page === 'collection') renderCollectionGrid();
+  if (page === 'home') renderFeaturedGrid();
+  if (page === 'product') renderProductDetail();
+}
+
+/* ── RENDER PRODUCT CARD ── */
+function renderCard(p, featured) {
+  var isSold = p.badge === 'out';
+  var badgeHtml = p.badge ? '<div class="pc-badge badge-' + p.badge + '">' + p.badgeTxt + '</div>' : '';
+  var swatches = p.colors.map(function(c, i) {
+    var light = (c === '#F2EDE6' || c === '#F2EDE6');
+    return '<div class="pc-swatch' + (light ? ' light' : '') + '" style="background:' + c + ';"></div>';
+  }).join('');
+  return '<div class="prod-card' + (featured ? ' feat-wide' : '') + '" data-cat="' + p.cat + '" data-price="' + p.price + '" data-stock="' + (isSold ? 'out' : 'in') + '">' +
+    '<div class="pc-img">' + badgeHtml +
+    '<button class="pc-wish-btn" onclick="event.stopPropagation();toggleWish(' + p.id + ',this)" title="Wishlist">♡</button>' +
+    '<div class="pc-img-txt">SYS · 00' + p.id + '</div>' +
+    '<div class="pc-overlay">' +
+      (isSold ? '<button class="pc-view" onclick="openNotify()">Notify Me</button>' :
+       '<button class="pc-quick" onclick="event.stopPropagation();quickAdd(' + p.id + ')">+ Quick Add</button><button class="pc-view" onclick="openProductPage(' + p.id + ')">View Details</button>') +
+    '</div></div>' +
+    '<div class="pc-info">' +
+    '<div class="pc-cat">' + p.cat.charAt(0).toUpperCase() + p.cat.slice(1) + '</div>' +
+    '<div class="pc-name">' + p.name + '</div>' +
+    '<div class="pc-price' + (isSold ? ' out' : '') + '">' + fmtPrice(p.price) + '</div>' +
+    '<div class="pc-colors">' + swatches + '</div>' +
+    '<div class="pc-sizes">' + p.sizes.join(' · ') + '</div>' +
+    '</div></div>';
+}
+
+function renderFeaturedGrid() {
+  var g = document.getElementById('featuredGrid');
+  if (!g) return;
+  g.innerHTML = products.slice(0, 8).map(function(p) { return renderCard(p, false); }).join('');
+}
+
+function renderCollectionGrid() {
+  var g = document.getElementById('collectionGrid');
+  if (!g) return;
+  var filtered = products.filter(function(p) {
+    var catOk = currentCatFilter === 'all' || p.cat === currentCatFilter;
+    var stockOk = !inStockOnly || p.badge !== 'out';
+    return catOk && stockOk;
+  });
+  // featured wide on first item of all-view
+  g.innerHTML = filtered.map(function(p, i) {
+    return renderCard(p, false);
+  }).join('');
+  document.getElementById('resCount').textContent = filtered.length + ' pieces';
+}
+
+/* ── FILTER ── */
+function filterProducts(btn, cat) {
+  document.querySelectorAll('#catFilters .fb:not(#inStockBtn)').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  currentCatFilter = cat;
+  renderCollectionGrid();
+}
+function toggleInStock(btn) {
+  inStockOnly = !inStockOnly;
+  btn.style.background = inStockOnly ? 'var(--rust)' : '';
+  btn.style.color = inStockOnly ? 'var(--bone)' : 'var(--rust)';
+  renderCollectionGrid();
+}
+function sortProducts(val) {
+  if (val === 'price-asc') products.sort(function(a,b){return a.price-b.price;});
+  else if (val === 'price-desc') products.sort(function(a,b){return b.price-a.price;});
+  renderCollectionGrid();
+}
+
+/* ── PRODUCT DETAIL ── */
+function openProductPage(id) {
+  currentProduct = products.find(function(p){return p.id===id;}) || products[0];
+  navigate('product');
+}
+function renderProductDetail() {
+  var p = currentProduct;
+  document.getElementById('pdImgLabel').textContent = 'SYS · 00' + p.id;
+  document.getElementById('pdColl').textContent = 'Mutual Ground — SS25';
+  document.getElementById('pdSku').textContent = 'SKU-SYS-00' + p.id;
+  document.getElementById('pdName').textContent = p.name;
+  document.getElementById('pdSub').textContent = p.fit;
+  document.getElementById('pdPrice').textContent = fmtPrice(p.price);
+  // sizes
+  document.getElementById('pdSizes').innerHTML = p.sizes.map(function(sz) {
+    var sold = p.soldSizes.indexOf(sz) !== -1;
+    return '<button class="sz-btn' + (sold?' sold':'') + '" onclick="selectPdSize(this)" ' + (sold?'disabled':'') + '>' + sz + '</button>';
+  }).join('');
+  if (!p.soldSizes.length || p.sizes.length > p.soldSizes.length) {
+    var first = document.querySelector('#pdSizes .sz-btn:not(.sold)');
+    if (first) first.classList.add('active');
+  }
+  // colors
+  document.getElementById('pdColors').innerHTML = p.colors.map(function(c, i) {
+    var light = c === '#F2EDE6';
+    return '<div class="color-dot' + (i===0?' active':'') + '" style="background:' + c + ';' + (light?'border:.5px solid var(--line);':'') + '" onclick="selectPdColor(this,\'' + p.colorNames[i] + '\')"></div>';
+  }).join('');
+  document.getElementById('pdColorHead').innerHTML = 'Color — <span style="font-style:italic">' + p.colorNames[0] + '</span>';
+  // details
+  document.getElementById('pdDetails').innerHTML = [
+    ['Material', p.material],
+    ['Fit', p.fit],
+    ['Origin', p.origin],
+    ['Units Left', '<span class="pd-stock-warn">' + p.units + '</span>'],
+  ].map(function(r){return '<div class="pd-detail-row"><span class="pd-dk">'+r[0]+'</span><span class="pd-dv">'+r[1]+'</span></div>';}).join('');
+}
+function selectPdSize(btn) {
+  document.querySelectorAll('#pdSizes .sz-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+function selectPdColor(el, name) {
+  document.querySelectorAll('#pdColors .color-dot').forEach(function(d){d.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('pdColorHead').innerHTML = 'Color — <span style="font-style:italic">' + name + '</span>';
+}
+function addCurrentToCart() {
+  var sz = document.querySelector('#pdSizes .sz-btn.active');
+  var clr = document.querySelector('#pdColors .color-dot.active');
+  var szTxt = sz ? sz.textContent : 'M';
+  var clrIdx = clr ? Array.from(document.querySelectorAll('#pdColors .color-dot')).indexOf(clr) : 0;
+  var clrName = currentProduct.colorNames[clrIdx] || 'Void Black';
+  var existing = cart.find(function(i){return i.productId===currentProduct.id && i.variant===szTxt+' · '+clrName;});
+  if (existing) { existing.qty++; }
+  else { cart.push({productId:currentProduct.id, name:currentProduct.name, variant:szTxt+' · '+clrName, price:currentProduct.price, qty:1}); }
+  updateCartUI();
+  var btn = document.getElementById('pdAddBtn');
+  btn.classList.add('adding');
+  btn.textContent = '✓ Added to Cart';
+  setTimeout(function(){btn.classList.remove('adding');btn.textContent='+ Add to Cart';openCart();},800);
+}
+function wishCurrentProduct() {
+  toggleWish(currentProduct.id, null);
+}
+
+/* ── QUICK ADD ── */
+function quickAdd(id) {
+  var p = products.find(function(x){return x.id===id;});
+  if (!p || p.badge==='out') return;
+  var sz = p.sizes.find(function(s){return p.soldSizes.indexOf(s)===-1;}) || p.sizes[0];
+  cart.push({productId:p.id, name:p.name, variant:sz+' · '+p.colorNames[0], price:p.price, qty:1});
+  updateCartUI();
+  showToast('+ ' + p.name + ' added to cart', 'spore');
+}
+
+/* ── WISHLIST ── */
+function toggleWish(id, btn) {
+  var idx = wishlist.findIndex(function(w){return w.id===id;});
+  var p = products.find(function(x){return x.id===id;});
+  if (idx === -1) {
+    wishlist.push({id:p.id, name:p.name, price:p.price, color:p.colorNames[0]});
+    if (btn) btn.classList.add('wished');
+    showToast('♡ ' + p.name + ' saved to wishlist', '');
+  } else {
+    wishlist.splice(idx, 1);
+    if (btn) btn.classList.remove('wished');
+  }
+  renderWishlist();
+}
+function renderWishlist() {
+  var el = document.getElementById('wdItems');
+  document.getElementById('wdCount').textContent = '(' + wishlist.length + ')';
+  if (!wishlist.length) {
+    el.innerHTML = '<div class="wd-empty"><div class="wd-empty-title">Belum Ada Item</div><div class="wd-empty-sub">Klik ♡ di produk mana saja<br>untuk simpan ke wishlist kamu.</div></div>';
+    return;
+  }
+  el.innerHTML = wishlist.map(function(w, i) {
+    return '<div class="wd-item">' +
+      '<div class="wd-thumb"><div class="wd-thumb-txt">SYS</div></div>' +
+      '<div><div class="wd-name">' + w.name + '</div><div class="wd-var">' + w.color + '</div><div class="wd-price">' + fmtPrice(w.price) + '</div>' +
+      '<button class="wd-remove-btn" onclick="toggleWish(' + w.id + ',null)">Remove</button></div>' +
+      '<button class="wd-add" onclick="quickAdd(' + w.id + ');closeWishlist();">Add to Cart</button>' +
+      '</div>';
+  }).join('');
+}
+function openWishlist() {
+  document.getElementById('wlDrawer').classList.add('open');
+  document.getElementById('wlBackdrop').classList.add('open');
+}
+function closeWishlist() {
+  document.getElementById('wlDrawer').classList.remove('open');
+  document.getElementById('wlBackdrop').classList.remove('open');
+}
+
+/* ── CART ── */
+function updateCartUI() {
+  var total = cart.reduce(function(s,i){return s+i.qty*i.price;},0);
+  var count = cart.reduce(function(s,i){return s+i.qty;},0);
+  document.getElementById('cartBadge').textContent = count;
+  document.getElementById('cdCount').textContent = '(' + count + ')';
+  var sub = total - cartDiscount;
+  document.getElementById('cdSubtotal').textContent = fmtPrice(total);
+  document.getElementById('cdTotal').textContent = fmtPrice(sub);
+  document.getElementById('cdItems').innerHTML = cart.map(function(item, idx) {
+    return '<div class="cd-item">' +
+      '<div class="cd-thumb"><div class="cd-thumb-txt">SYS</div></div>' +
+      '<div><div class="cd-name">' + item.name + '</div><div class="cd-var">' + item.variant + '</div><div class="cd-price">' + fmtPrice(item.price) + '</div>' +
+      '<div class="qty-row"><button class="qty-btn" onclick="changeQty(' + idx + ',-1)">−</button><div class="qty-num">' + item.qty + '</div><button class="qty-btn" onclick="changeQty(' + idx + ',1)">+</button></div>' +
+      '<button class="cd-remove" onclick="removeItem(' + idx + ')">Remove</button></div>' +
+      '</div>';
+  }).join('') || '<div style="padding:40px 24px;text-align:center;font-size:10px;color:var(--soft);letter-spacing:.1em;text-transform:uppercase;">Cart kamu kosong</div>';
+}
+function changeQty(idx, delta) {
+  cart[idx].qty = Math.max(0, cart[idx].qty + delta);
+  if (cart[idx].qty === 0) removeItem(idx);
+  else updateCartUI();
+}
+function removeItem(idx) {
+  cart.splice(idx, 1);
+  updateCartUI();
+}
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartBackdrop').classList.add('open');
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartBackdrop').classList.remove('open');
+}
+function applyPromo() {
+  var v = document.getElementById('cdPromoInput').value.trim().toUpperCase();
+  if (v === 'MUTUAL25') {
+    var sub = cart.reduce(function(s,i){return s+i.qty*i.price;},0);
+    cartDiscount = Math.round(sub * 0.25);
+    document.getElementById('cdDiscRow').style.display = 'flex';
+    document.getElementById('cdDiscAmt').textContent = '−' + fmtPrice(cartDiscount);
+    updateCartUI();
+    showToast('Promo MUTUAL25 — 25% off diterapkan!', 'spore');
+  } else {
+    showToast('Kode promo tidak valid.', '');
+  }
+}
+
+/* ── CHECKOUT FLOW ── */
+function coBack() {
+  if (coStep > 1) { coStep--; updateCoStep(); }
+  else navigate('collection');
+}
+function coNext() {
+  if (coStep < 4) { coStep++; updateCoStep(); }
+  else navigate('confirmation');
+}
+function updateCoStep() {
+  ['co-s1','co-s2','co-s3'].forEach(function(id, i) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = (i+1 === coStep) ? 'block' : 'none';
+  });
+  ['cst1','cst2','cst3','cst4'].forEach(function(id, i) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.className = 'co-step';
+    if (i+1 < coStep) el.classList.add('done');
+    if (i+1 === coStep) el.classList.add('curr');
+    if (i+1 < coStep) el.querySelector('.co-step-num').textContent = '✓';
+    else el.querySelector('.co-step-num').textContent = i+1;
+  });
+  var btn = document.getElementById('coNextBtn');
+  if (coStep === 1) btn.textContent = 'Lanjut ke Pengiriman →';
+  else if (coStep === 2) btn.textContent = 'Lanjut ke Pembayaran →';
+  else if (coStep === 3) { btn.textContent = 'Bayar IDR ' + fmtPrice(1340000+shipCost).replace('IDR ','') + ' →'; btn.classList.add('pay'); }
+  else { navigate('confirmation'); }
+}
+function selectShip(el, cost) {
+  document.querySelectorAll('.ship-opt').forEach(function(o){o.classList.remove('sel');});
+  el.classList.add('sel');
+  shipCost = cost;
+  document.getElementById('coShipAmt').textContent = fmtPrice(cost);
+  document.getElementById('coTotal').textContent = fmtPrice(1340000 + cost);
+}
+function payTab(el, id) {
+  document.querySelectorAll('.pt').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.pc').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  document.getElementById('pc-' + id).classList.add('active');
+}
+function selBank(el) {
+  document.querySelectorAll('.bank-item').forEach(function(b){b.classList.remove('sel');});
+  el.classList.add('sel');
+}
+function selWallet(el) {
+  document.querySelectorAll('.wallet-item').forEach(function(w){w.classList.remove('sel');});
+  el.classList.add('sel');
+}
+function applyCoPromo() {
+  var v = document.getElementById('coPromoInput').value.trim().toUpperCase();
+  if (v === 'MUTUAL25') {
+    document.getElementById('coDiscRow').style.display = 'flex';
+    document.getElementById('coDiscAmt').textContent = '−IDR 335.000';
+    showToast('Diskon 25% diterapkan!', 'spore');
+  }
+}
+
+/* ── SEARCH ── */
+var allSearchItems = products.map(function(p) { return { name: p.name, cat: p.cat, price: p.price, id: p.id }; });
+var searchCatFilter = 'all';
+function toggleSearch() {
+  var ov = document.getElementById('searchOverlay');
+  ov.classList.toggle('open');
+  if (ov.classList.contains('open')) {
+    setTimeout(function(){ document.getElementById('searchInput').focus(); }, 100);
+    doSearch('');
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('searchOverlay').classList.remove('open');
+  }
+});
+function searchFilter(btn, cat) {
+  document.querySelectorAll('.sf-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  searchCatFilter = cat;
+  doSearch(document.getElementById('searchInput').value);
+}
+function doSearch(query) {
+  var results = allSearchItems.filter(function(p) {
+    var matchQ = !query || p.name.toLowerCase().indexOf(query.toLowerCase()) !== -1;
+    var matchC = searchCatFilter === 'all' || p.cat === searchCatFilter;
+    return matchQ && matchC;
+  });
+  var el = document.getElementById('searchResults');
+  el.innerHTML = results.map(function(p, i) {
+    return '<div class="sr-item" style="animation-delay:' + (i*0.04) + 's" onclick="toggleSearch();openProductPage(' + p.id + ')">' +
+      '<div class="sr-img"><div class="sr-img-txt">SYS</div></div>' +
+      '<div class="sr-name">' + p.name + '</div>' +
+      '<div class="sr-price">' + fmtPrice(p.price) + '</div>' +
+      '</div>';
+  }).join('') || '<div style="padding:24px;font-size:10px;color:#444;letter-spacing:.1em;text-transform:uppercase;grid-column:span 4;">No results found.</div>';
+}
+
+/* ── NOTIFY MODAL ── */
+function openNotify() {
+  document.getElementById('notifyModal').classList.add('open');
+}
+function closeNotify() {
+  document.getElementById('notifyModal').classList.remove('open');
+}
+
+/* ── TOAST ── */
+function showToast(msg, type) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast show' + (type ? ' ' + type : '');
+  clearTimeout(window._toastTimer);
+  window._toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2800);
+}
+
+/* ── COUNTDOWN ── */
+var dropTarget = new Date();
+dropTarget.setDate(dropTarget.getDate() + 14);
+dropTarget.setHours(20, 0, 0, 0);
+var prevVals = {};
+function updateCountdown() {
+  var now = new Date();
+  var diff = Math.max(0, dropTarget - now);
+  var d = Math.floor(diff / 86400000);
+  var h = Math.floor((diff % 86400000) / 3600000);
+  var m = Math.floor((diff % 3600000) / 60000);
+  var s = Math.floor((diff % 60000) / 1000);
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  [['cd-days', d], ['cd-hours', h], ['cd-mins', m], ['cd-secs', s]].forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (!el) return;
+    var val = pad(pair[1]);
+    if (val !== prevVals[pair[0]]) {
+      el.classList.remove('flip');
+      void el.offsetWidth;
+      el.classList.add('flip');
+      el.textContent = val;
+      prevVals[pair[0]] = val;
+    }
+  });
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+/* ── INIT ── */
+function fmtPrice(v) {
+  return 'IDR ' + v.toLocaleString('id-ID').replace(/\./g, ',').replace(/,/g, '.');
+}
+renderFeaturedGrid();
+updateCartUI();
+renderWishlist();
+</script>
+</body>
+</html>
